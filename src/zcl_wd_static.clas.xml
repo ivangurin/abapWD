@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_WD_STATIC</CLSNAME>
+    <VERSION>1</VERSION>
+    <LANGU>R</LANGU>
+    <DESCRIPT>WebDynPro</DESCRIPT>
+    <EXPOSURE>2</EXPOSURE>
+    <STATE>1</STATE>
+    <CLSFINAL>X</CLSFINAL>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WD_STATIC</CLSNAME>
+     <CMPNAME>ADD_MESSAGE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Âûâîäèì ñîîáùåíèå</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WD_STATIC</CLSNAME>
+     <CMPNAME>CLEAR_MESSAGES</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Î÷èùàåò âñå ïðåäûäóùèå ñîîáùåíèÿ</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WD_STATIC</CLSNAME>
+     <CMPNAME>FILE_DOWNLOAD</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>File download</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WD_STATIC</CLSNAME>
+     <CMPNAME>GET_ELEMENTS</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Ïîëó÷èòü âñå ýëåìåíòû VIEW</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WD_STATIC</CLSNAME>
+     <CMPNAME>GET_URL</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Ïîëó÷àåì URL ïðèëîæåíèÿ</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WD_STATIC</CLSNAME>
+     <CMPNAME>IS_CONFIG_MODE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Ïðîâåðêà íà ðåæèì êîíôèãóðàöèè</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WD_STATIC</CLSNAME>
+     <CMPNAME>IS_DEBUG_MODE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Ïðîâåðêà íà ðåæèì îòëàäêè</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WD_STATIC</CLSNAME>
+     <CMPNAME>IS_PORTAL_MODE</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Ïðîâåðêà íà çàïóñê ïðèëîæåíèÿ èç ïîðòàëà</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_WD_STATIC</CLSNAME>
+     <CMPNAME>OPEN_URL</CMPNAME>
+     <LANGU>R</LANGU>
+     <DESCRIPT>Open URL</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
