@@ -1,83 +1,83 @@
-class ZCL_WD_SELOPT definition
+class zcl_wd_selopt definition
   public
   final
   create public .
 
 *"* public components of class ZCL_WD_SELOPT
 *"* do not include other source files here!!!
-public section.
+  public section.
 
-  data R_SELOPT type ref to IF_WD_SELECT_OPTIONS .
+    data r_selopt type ref to if_wd_select_options .
 
-  methods CONSTRUCTOR
-    importing
-      !IR_SELOPT type ref to IWCI_WDR_SELECT_OPTIONS .
-  class-methods GET
-    importing
-      !IR_SELOPT type ref to IWCI_WDR_SELECT_OPTIONS
-    returning
-      value(ER_SELOPT) type ref to ZCL_WD_SELOPT .
-  class-methods GET_BY_USAGE
-    importing
-      !IR_USAGE type ref to IF_WD_COMPONENT_USAGE
-    returning
-      value(ER_SELOPT) type ref to ZCL_WD_SELOPT .
-  methods INIT .
-  type-pools ABAP .
-  methods CREATE
-    importing
-      !I_ID type SIMPLE
-      !I_TYPE type SIMPLE
-      !I_TEXT type SIMPLE optional
-      !I_PARAMETER type ABAP_BOOL optional
-      !I_CHECKBOX type ABAP_BOOL optional
-      !I_DROPDOWN type ABAP_BOOL optional
-      !I_READONLY type ABAP_BOOL default ABAP_FALSE
-      !I_VALUE type SIMPLE optional
-      !IT_VALUES type ZIVALUES optional
-      !I_HELP_STR type DDOBJNAME optional
-      !I_HELP_FIELD type FIELDNAME optional .
-  methods UPDATE
-    importing
-      !I_ID type SIMPLE
-      !I_TEXT type SIMPLE optional
-      !I_READONLY type ABAP_BOOL optional
-      !I_OBLIGATORY type ABAP_BOOL optional
-      !I_VALUE type DATA optional
-      !IT_RANGE type ZIRANGE optional .
-  methods REMOVE
-    importing
-      !I_ID type SIMPLE .
-  methods RESET .
-  methods CHECK
-    raising
-      ZCX_GENERIC .
-  methods SET_RANGE
-    importing
-      !I_ID type STRING
-      !IT_RANGE type ZIRANGE optional .
-  methods GET_RANGE
-    importing
-      !I_ID type STRING
-    returning
-      value(ET_RANGE) type ZIRANGE .
-  methods SET_VALUE
-    importing
-      !I_ID type STRING
-      !I_VALUE type DATA optional .
-  methods GET_VALUE
-    importing
-      !I_ID type STRING
-    returning
-      value(EV_VALUE) type STRING .
-protected section.
+    methods constructor
+      importing
+        !ir_selopt type ref to iwci_wdr_select_options .
+    class-methods get
+      importing
+        !ir_selopt       type ref to iwci_wdr_select_options
+      returning
+        value(er_selopt) type ref to zcl_wd_selopt .
+    class-methods get_by_usage
+      importing
+        !ir_usage        type ref to if_wd_component_usage
+      returning
+        value(er_selopt) type ref to zcl_wd_selopt .
+    methods init .
+    type-pools abap .
+    methods create
+      importing
+        !i_id         type simple
+        !i_type       type simple
+        !i_text       type simple optional
+        !i_parameter  type abap_bool optional
+        !i_checkbox   type abap_bool optional
+        !i_dropdown   type abap_bool optional
+        !i_readonly   type abap_bool default abap_false
+        !i_value      type simple optional
+        !it_values    type zivalues optional
+        !i_help_str   type ddobjname optional
+        !i_help_field type fieldname optional .
+    methods update
+      importing
+        !i_id         type simple
+        !i_text       type simple optional
+        !i_readonly   type abap_bool optional
+        !i_obligatory type abap_bool optional
+        !i_value      type data optional
+        !it_range     type zirange optional .
+    methods remove
+      importing
+        !i_id type simple .
+    methods reset .
+    methods check
+      raising
+        zcx_generic .
+    methods set_range
+      importing
+        !i_id     type string
+        !it_range type zirange optional .
+    methods get_range
+      importing
+        !i_id           type string
+      returning
+        value(et_range) type zirange .
+    methods set_value
+      importing
+        !i_id    type string
+        !i_value type data optional .
+    methods get_value
+      importing
+        !i_id          type string
+      returning
+        value(e_value) type string .
+  protected section.
 *"* protected components of class ZCL_WD_SELOPT
 *"* do not include other source files here!!!
-private section.
+  private section.
 *"* private components of class ZCL_WD_SELOPT
 *"* do not include other source files here!!!
 
-  class-data DUMMY type DUMMY .
+    class-data dummy type dummy .
 ENDCLASS.
 
 
@@ -85,19 +85,21 @@ ENDCLASS.
 CLASS ZCL_WD_SELOPT IMPLEMENTATION.
 
 
-method CHECK.
+  method check.
 
-    data lv_errors type i.
-    r_selopt->check_all_selection_fields( importing e_num_error_msgs = lv_errors ).
+    data l_errors type i.
+    r_selopt->check_all_selection_fields(
+      importing
+        e_num_error_msgs = l_errors ).
 
-    if lv_errors ne 0.
+    if l_errors ne 0.
       zcx_generic=>raise( ).
     endif.
 
   endmethod.
 
 
-method CONSTRUCTOR.
+  method constructor.
 
     r_selopt = ir_selopt->init_selection_screen( ).
 
@@ -106,7 +108,7 @@ method CONSTRUCTOR.
   endmethod.
 
 
-method CREATE.
+  method create.
 
     data l_id type string.
     l_id = i_id.
@@ -162,7 +164,7 @@ method CREATE.
   endmethod.
 
 
-method GET.
+  method get.
 
     create object er_selopt
       exporting
@@ -171,7 +173,7 @@ method GET.
   endmethod.
 
 
-method GET_BY_USAGE.
+  method get_by_usage.
 
     if ir_usage->has_active_component( ) eq abap_false.
       ir_usage->create_component( ).
@@ -185,61 +187,67 @@ method GET_BY_USAGE.
   endmethod.
 
 
-method GET_RANGE.
+  method get_range.
 
-  data lt_fields type if_wd_select_options=>tt_selection_screen_item.
-  r_selopt->get_selection_fields( importing et_fields = lt_fields ).
+    data lt_fields type if_wd_select_options=>tt_selection_screen_item.
+    r_selopt->get_selection_fields(
+      importing
+        et_fields = lt_fields ).
 
-  data ls_field like line of lt_fields.
-  read table lt_fields transporting no fields with key m_id = i_id.
-  check sy-subrc eq 0.
+    data ls_field like line of lt_fields.
+    read table lt_fields transporting no fields with key m_id = i_id.
+    check sy-subrc eq 0.
 
-  data lr_range type ref to data.
-  lr_range = r_selopt->get_range_table_of_sel_field( i_id ).
-  assert lr_range is bound.
+    data lr_range type ref to data.
+    lr_range = r_selopt->get_range_table_of_sel_field( i_id ).
+    assert lr_range is bound.
 
-  field-symbols <lt_range> type any table.
-  assign lr_range->* to <lt_range>.
+    field-symbols <lt_range> type any table.
+    assign lr_range->* to <lt_range>.
 
-  field-symbols <ls_range> type any.
-  loop at <lt_range> assigning <ls_range>.
-    field-symbols <es_range> like line of et_range.
-    append initial line to et_range assigning <es_range>.
-    move-corresponding <ls_range> to <es_range>.
-  endloop.
+    field-symbols <ls_range> type any.
+    loop at <lt_range> assigning <ls_range>.
 
-  endmethod.
+      field-symbols <es_range> like line of et_range.
+      append initial line to et_range assigning <es_range>.
+      move-corresponding <ls_range> to <es_range>.
 
-
-method GET_VALUE.
-
-  data lt_fields type if_wd_select_options=>tt_selection_screen_item.
-  r_selopt->get_selection_fields( importing et_fields = lt_fields ).
-
-  data ls_field like line of lt_fields.
-  read table lt_fields transporting no fields with key m_id = i_id.
-  check sy-subrc eq 0.
-
-  data lr_value type ref to data.
-  lr_value = r_selopt->get_range_table_of_sel_field( i_id ).
-  assert lr_value is bound.
-
-  field-symbols <lt_range> type standard table.
-  assign lr_value->* to <lt_range>.
-
-  field-symbols <ls_range> type any.
-  read table <lt_range> assigning <ls_range> index 1.
-  check sy-subrc eq 0.
-
-  field-symbols <lv_value> type any.
-  assign component 'LOW' of structure <ls_range> to <lv_value>.
-
-  ev_value = <lv_value>.
+    endloop.
 
   endmethod.
 
 
-method INIT.
+  method get_value.
+
+    data lt_fields type if_wd_select_options=>tt_selection_screen_item.
+    r_selopt->get_selection_fields(
+      importing
+        et_fields = lt_fields ).
+
+    data ls_field like line of lt_fields.
+    read table lt_fields transporting no fields with key m_id = i_id.
+    check sy-subrc eq 0.
+
+    data lr_value type ref to data.
+    lr_value = r_selopt->get_range_table_of_sel_field( i_id ).
+    assert lr_value is bound.
+
+    field-symbols <lt_range> type standard table.
+    assign lr_value->* to <lt_range>.
+
+    field-symbols <ls_range> type any.
+    read table <lt_range> assigning <ls_range> index 1.
+    check sy-subrc eq 0.
+
+    field-symbols <l_value> type any.
+    assign component 'LOW' of structure <ls_range> to <l_value>.
+
+    e_value = <l_value>.
+
+  endmethod.
+
+
+  method init.
 
     r_selopt->set_global_options(
       i_display_btn_cancel  = abap_false
@@ -250,7 +258,7 @@ method INIT.
   endmethod.
 
 
-method REMOVE.
+  method remove.
 
     data l_id type string.
     l_id = i_id.
@@ -260,38 +268,38 @@ method REMOVE.
   endmethod.
 
 
-method RESET.
+  method reset.
 
-  r_selopt->reset_all_selection_fields( ).
-
-  endmethod.
-
-
-method SET_RANGE.
-
-  data lr_value type ref to data.
-  lr_value = r_selopt->get_range_table_of_sel_field( i_id ).
-  assert lr_value is bound.
-
-  field-symbols <lt_range> type standard table.
-  assign lr_value->* to <lt_range>.
-  clear <lt_range>.
-
-  if it_range is not supplied.
-    return.
-  endif.
-
-  data ls_range like line of it_range.
-  loop at it_range into ls_range.
-    field-symbols <ls_range> type any.
-    append initial line to <lt_range> assigning <ls_range>.
-    move-corresponding ls_range to <ls_range>.
-  endloop.
+    r_selopt->reset_all_selection_fields( ).
 
   endmethod.
 
 
-method SET_VALUE.
+  method set_range.
+
+    data lr_value type ref to data.
+    lr_value = r_selopt->get_range_table_of_sel_field( i_id ).
+    assert lr_value is bound.
+
+    field-symbols <lt_range> type standard table.
+    assign lr_value->* to <lt_range>.
+    clear <lt_range>.
+
+    if it_range is not supplied.
+      return.
+    endif.
+
+    data ls_range like line of it_range.
+    loop at it_range into ls_range.
+      field-symbols <ls_range> type any.
+      append initial line to <lt_range> assigning <ls_range>.
+      move-corresponding ls_range to <ls_range>.
+    endloop.
+
+  endmethod.
+
+
+  method set_value.
 
 *  data lr_selopt type ref to cl_wdr_select_options.
 *  lr_selopt ?= r_selopt.
@@ -299,77 +307,77 @@ method SET_VALUE.
 *    return.
 *  endif.
 
-  data lr_value type ref to data.
-  lr_value = r_selopt->get_range_table_of_sel_field( i_id ).
-  assert lr_value is bound.
+    data lr_value type ref to data.
+    lr_value = r_selopt->get_range_table_of_sel_field( i_id ).
+    assert lr_value is bound.
 
-  field-symbols <lt_range> type standard table.
-  assign lr_value->* to <lt_range>.
-  clear <lt_range>.
+    field-symbols <lt_range> type standard table.
+    assign lr_value->* to <lt_range>.
+    clear <lt_range>.
 
-  if i_value is not supplied.
-    return.
-  endif.
+    if i_value is not supplied.
+      return.
+    endif.
 
-  field-symbols <ls_range> type any.
-  append initial line to <lt_range> assigning <ls_range>.
+    field-symbols <ls_range> type any.
+    append initial line to <lt_range> assigning <ls_range>.
 
-  field-symbols <lv_value> type any.
-  assign component 'SIGN' of structure <ls_range> to <lv_value>.
-  <lv_value> = 'I'.
+    field-symbols <l_value> type any.
+    assign component 'SIGN' of structure <ls_range> to <l_value>.
+    <l_value> = 'I'.
 
-  assign component 'OPTION' of structure <ls_range> to <lv_value>.
-  <lv_value> = 'EQ'.
+    assign component 'OPTION' of structure <ls_range> to <l_value>.
+    <l_value> = 'EQ'.
 
-  assign component 'LOW' of structure <ls_range> to <lv_value>.
-  <lv_value> = i_value.
+    assign component 'LOW' of structure <ls_range> to <l_value>.
+    <l_value> = i_value.
 
   endmethod.
 
 
-method UPDATE.
+  method update.
 
-  data l_id type string.
-  l_id = i_id.
+    data l_id type string.
+    l_id = i_id.
 
-  data l_text type string.
-  if i_text is supplied.
-    l_text = i_text.
-  else.
-    r_selopt->get_selection_field(
-      exporting i_id = l_id
-      importing e_description = l_text ).
-  endif.
+    data l_text type string.
+    if i_text is supplied.
+      l_text = i_text.
+    else.
+      r_selopt->get_selection_field(
+        exporting i_id = l_id
+        importing e_description = l_text ).
+    endif.
 
-  if i_readonly is supplied.
-    r_selopt->upd_selection_field(
-      i_id        = l_id
-      i_read_only = i_readonly ).
-  endif.
+    if i_readonly is supplied.
+      r_selopt->upd_selection_field(
+        i_id        = l_id
+        i_read_only = i_readonly ).
+    endif.
 
-  if i_obligatory is supplied.
-    r_selopt->upd_selection_field(
-      i_id         = l_id
-      i_obligatory = i_obligatory ).
-  endif.
+    if i_obligatory is supplied.
+      r_selopt->upd_selection_field(
+        i_id         = l_id
+        i_obligatory = i_obligatory ).
+    endif.
 
-  if i_value is supplied.
-    set_value(
-      i_id    = l_id
-      i_value = i_value ).
-  endif.
+    if i_value is supplied.
+      set_value(
+        i_id    = l_id
+        i_value = i_value ).
+    endif.
 
-  if it_range is supplied.
-    set_range(
-      i_id    = l_id
-      it_range = it_range ).
-  endif.
+    if it_range is supplied.
+      set_range(
+        i_id    = l_id
+        it_range = it_range ).
+    endif.
 
-  if l_text is not initial.
-    r_selopt->upd_selection_field(
-      i_id          = l_id
-      i_description = l_text ).
-  endif.
+    if l_text is not initial.
+      r_selopt->upd_selection_field(
+        i_id          = l_id
+        i_description = l_text ).
+    endif.
 
   endmethod.
 ENDCLASS.

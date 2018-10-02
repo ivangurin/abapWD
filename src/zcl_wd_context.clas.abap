@@ -188,10 +188,12 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
 
     data ls_field like line of it_fields.
     loop at it_fields into ls_field.
+
       add_field(
         i_path = i_path
         i_name = ls_field-name
         i_type = ls_field-type ).
+
     endloop.
 
   endmethod.
@@ -202,7 +204,10 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
     data lr_node type ref to if_wd_context_node.
     lr_node = r_context->path_get_node( i_path ).
 
-    lr_node->bind_structure( exporting new_item = is_data set_initial_elements = '' ).
+    lr_node->bind_structure(
+      exporting
+        new_item             = is_data
+        set_initial_elements = abap_false ).
 
   endmethod.
 
@@ -319,10 +324,14 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
 
     data lr_element  like line of lt_elements.
     loop at lt_elements into lr_element.
-*    insert initial line into <lt_data> assigning <ls_data> index 1.
+
       field-symbols <ls_data> type any.
       append initial line to <lt_data> assigning <ls_data>.
-      lr_element->get_static_attributes( importing static_attributes = <ls_data> ).
+
+      lr_element->get_static_attributes(
+        importing
+          static_attributes = <ls_data> ).
+
     endloop.
 
   endmethod.
@@ -334,6 +343,7 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
     lr_node = r_context->path_get_node( i_path ).
 
     e_index = lr_node->get_lead_selection_index( ).
+
     if e_index eq if_wd_context_node=>no_selection.
       e_index = 0.
     endif.
@@ -350,9 +360,12 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
 
     data lr_node type ref to if_wd_context_node.
     lr_node = r_context->path_get_node( i_path ).
+
     lr_node->get_static_attributes(
-      exporting index             = i_index
-      importing static_attributes = es_data ).
+      exporting
+        index             = i_index
+      importing
+        static_attributes = es_data ).
 
   endmethod.
 
@@ -364,7 +377,9 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
 
     if i_static eq abap_true.
 
-      lr_node->get_static_attributes_table( importing table = et_data ).
+      lr_node->get_static_attributes_table(
+        importing
+          table = et_data ).
 
     else.
 
@@ -405,43 +420,49 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
 
   method get_value.
 
-    data lv_path type string.
-    lv_path = i_path.
-    data lv_field type string.
-    lv_field = i_field.
-    if lv_field is initial.
-      find regex '(.*)[.](.*)' in i_path submatches lv_path lv_field.
+    data l_path type string.
+    l_path = i_path.
+
+    data l_field type string.
+    l_field = i_field.
+
+    if l_field is initial.
+      find regex '(.*)[.](.*)' in i_path submatches l_path l_field.
     endif.
 
     data lr_node type ref to if_wd_context_node.
-    lr_node = r_context->path_get_node( lv_path ).
+    lr_node = r_context->path_get_node( l_path ).
 
     lr_node->get_attribute(
-      exporting name  = lv_field
-                index = i_index
-      importing value = e_value ).
+      exporting
+        name  = l_field
+        index = i_index
+      importing
+        value = e_value ).
 
   endmethod.
 
 
   method get_values.
 
-    data lv_path type string.
-    lv_path = i_path.
-    data lv_field type string.
-    lv_field = i_field.
-    if lv_field is initial.
-      find regex '(.*)[.](.*)' in i_path submatches lv_path lv_field.
+    data l_path type string.
+    l_path = i_path.
+
+    data l_field type string.
+    l_field = i_field.
+
+    if l_field is initial.
+      find regex '(.*)[.](.*)' in i_path submatches l_path l_field.
     endif.
 
     data lr_node type ref to if_wd_context_node.
-    lr_node = r_context->path_get_node( lv_path ).
+    lr_node = r_context->path_get_node( l_path ).
 
     data lr_info type ref to if_wd_context_node_info.
     lr_info = lr_node->get_node_info( ).
 
     data ls_info type wdr_context_attribute_info.
-    ls_info = lr_info->get_attribute( lv_field ).
+    ls_info = lr_info->get_attribute( l_field ).
 
     et_values = ls_info-value_set.
 
@@ -465,6 +486,7 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
 
     data lr_node type ref to if_wd_context_node.
     lr_node = r_context->path_get_node( i_path ).
+
     lr_node->set_lead_selection_index( i_index ).
 
   endmethod.
@@ -502,66 +524,61 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
 
   method set_nullable.
 
-    data lv_path type string.
-    lv_path = i_path.
-    data lv_field type string.
-    lv_field = i_field.
-    if lv_field is initial.
-      find regex '(.*)[.](.*)' in i_path submatches lv_path lv_field.
+    data l_path type string.
+    l_path = i_path.
+
+    data l_field type string.
+    l_field = i_field.
+
+    if l_field is initial.
+      find regex '(.*)[.](.*)' in i_path submatches l_path l_field.
     endif.
 
     data lr_node type ref to if_wd_context_node.
-    lr_node = r_context->path_get_node( lv_path ).
+    lr_node = r_context->path_get_node( l_path ).
 
     data lr_info type ref to if_wd_context_node_info.
     lr_info = lr_node->get_node_info( ).
 
-    lr_info->set_nullable( lv_field ).
+    lr_info->set_nullable( l_field ).
 
   endmethod.
 
 
   method set_property.
 
-    data lv_path type string.
-    lv_path = i_path.
-    data lv_field type string.
-    lv_field = i_field.
-    if lv_field is initial.
-      find regex '(.*)[.](.*)' in i_path submatches lv_path lv_field.
+    data l_path type string.
+    l_path = i_path.
+
+    data l_field type string.
+    l_field = i_field.
+
+    if l_field is initial.
+      find regex '(.*)[.](.*)' in i_path submatches l_path l_field.
     endif.
 
-    data lv_property type i.
+    data l_property type i.
     case i_property.
       when 'VISIBLE'.
-        lv_property = if_wd_context_element=>e_property-visible.
+        l_property = if_wd_context_element=>e_property-visible.
       when 'REQUIRED'.
-        lv_property = if_wd_context_element=>e_property-required.
+        l_property = if_wd_context_element=>e_property-required.
       when 'READONLY'.
-        lv_property = if_wd_context_element=>e_property-read_only.
+        l_property = if_wd_context_element=>e_property-read_only.
       when 'ENABLED'.
-        lv_property = if_wd_context_element=>e_property-enabled.
+        l_property = if_wd_context_element=>e_property-enabled.
       when others.
         assert 1 = 2.
     endcase.
 
     data lr_node type ref to if_wd_context_node.
-    lr_node = r_context->path_get_node( lv_path ).
+    lr_node = r_context->path_get_node( l_path ).
 
     lr_node->set_attribute_property(
       index          = i_index
-      attribute_name = lv_field
-      property       = lv_property
+      attribute_name = l_field
+      property       = l_property
       value          = i_value ).
-
-*  data lt_elements type wdr_context_element_set.
-*  lt_elements = lr_node->get_elements( ).
-*  loop at lt_elements into lr_element.
-*    lr_element->set_attribute_property(
-*      attribute_name = i_field
-*      property       = lv_property
-*      value          = i_value ).
-*  endloop.
 
   endmethod.
 
@@ -599,6 +616,7 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
 
     data lr_node type ref to if_wd_context_node.
     lr_node = r_context->path_get_node( i_path ).
+
     lr_node->set_static_attributes(
       index             = i_index
       static_attributes = is_data ).
@@ -627,20 +645,22 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
 
   method set_value.
 
-    data lv_path type string.
-    lv_path = i_path.
-    data lv_field type string.
-    lv_field = i_field.
-    if lv_field is initial.
-      find regex '(.*)[.](.*)' in i_path submatches lv_path lv_field.
+    data l_path type string.
+    l_path = i_path.
+
+    data l_field type string.
+    l_field = i_field.
+
+    if l_field is initial.
+      find regex '(.*)[.](.*)' in i_path submatches l_path l_field.
     endif.
 
     data lr_node type ref to if_wd_context_node.
-    lr_node = r_context->path_get_node( lv_path ).
+    lr_node = r_context->path_get_node( l_path ).
 
     lr_node->set_attribute(
       index = i_index
-      name  = lv_field
+      name  = l_field
       value = i_value ).
 
   endmethod.
@@ -648,21 +668,26 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
 
   method set_values.
 
-    data lv_path type string.
-    lv_path = i_path.
-    data lv_field type string.
-    lv_field = i_field.
-    if lv_field is initial.
-      find regex '(.*)[.](.*)' in i_path submatches lv_path lv_field.
+    data l_path type string.
+    l_path = i_path.
+
+    data l_field type string.
+    l_field = i_field.
+
+    if l_field is initial.
+      find regex '(.*)[.](.*)' in i_path submatches l_path l_field.
     endif.
 
     data lr_node type ref to if_wd_context_node.
-    lr_node = r_context->path_get_node( lv_path ).
+    lr_node = r_context->path_get_node( l_path ).
 
     data lr_info type ref to if_wd_context_node_info.
     lr_info = lr_node->get_node_info( ).
 
-    lr_info->set_attribute_value_set( exporting name = lv_field value_set = it_values ).
+    lr_info->set_attribute_value_set(
+      exporting
+        name      = l_field
+        value_set = it_values ).
 
   endmethod.
 
@@ -673,8 +698,9 @@ CLASS ZCL_WD_CONTEXT IMPLEMENTATION.
     lr_node = r_context->path_get_node( i_path ).
 
     data lt_elements type wdr_context_element_set.
-    lt_elements = lr_node->get_selected_elements(
-      including_lead_selection = abap_true ).
+    lt_elements =
+      lr_node->get_selected_elements(
+        including_lead_selection = abap_true ).
 
     data lr_element  like line of lt_elements.
     loop at lt_elements into lr_element.

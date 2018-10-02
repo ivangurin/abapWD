@@ -1,183 +1,186 @@
-class ZCL_WD_STATIC definition
+class zcl_wd_static definition
   public
   final
   create public .
 
 *"* public components of class ZCL_WD_STATIC
 *"* do not include other source files here!!!
-public section.
+  public section.
 
-  types:
-    begin of ts_metadata,
+    types:
+      begin of ts_metadata,
         field       type fieldname,
         visible(1),
         enabled(1),
         editable(1),
         required(1),
       end of ts_metadata .
-  types:
-    tt_metadata type table of ts_metadata .
+    types:
+      tt_metadata type table of ts_metadata .
 
-  constants ICON_APPROVE type STRING value '~Icon/Approve' ##NO_TEXT.
-  constants ICON_DELETE type STRING value '~Icon/Delete' ##NO_TEXT.
-  constants ICON_FAILURE type STRING value '~Icon/Failure' ##NO_TEXT.
-  constants ICON_GREEN_LED type STRING value '~Icon/GreenLed' ##NO_TEXT.
-  constants ICON_RED_LED type STRING value '~Icon/RedLed' ##NO_TEXT.
-  constants ICON_REFRESH type STRING value '~Icon/TbRefresh' ##NO_TEXT.
-  constants ICON_YELLOW_LED type STRING value '~Icon/YellowLed' ##NO_TEXT.
+    constants icon_approve type string value '~Icon/Approve' ##NO_TEXT.
+    constants icon_delete type string value '~Icon/Delete' ##NO_TEXT.
+    constants icon_failure type string value '~Icon/Failure' ##NO_TEXT.
+    constants icon_green_led type string value '~Icon/GreenLed' ##NO_TEXT.
+    constants icon_red_led type string value '~Icon/RedLed' ##NO_TEXT.
+    constants icon_refresh type string value '~Icon/TbRefresh' ##NO_TEXT.
+    constants icon_yellow_led type string value '~Icon/YellowLed' ##NO_TEXT.
 
-  class-methods GET_URL
-    importing
-      !I_APP type STRING
-      !I_GUID type SIMPLE optional
-      !I_LANGUAGE type LANGU default SY-LANGU
-      !IT_PARAMETERS type TIHTTPNVP optional
-    returning
-      value(E_URL) type STRING .
-  class-methods OPEN_URL
-    importing
-      !IR_CONTROLLER type ref to IF_WD_COMPONENT
-      !I_URL type STRING .
-  class-methods CLEAR_MESSAGES
-    importing
-      !IR_CONTROLLER type ref to IF_WD_COMPONENT .
-  class-methods ADD_MESSAGE
-    importing
-      !IR_CONTROLLER type ref to IF_WD_COMPONENT
-      !IS_MESSAGE type ZSMESSAGE optional .
-  class-methods ADD_MESSAGES
-    importing
-      !IR_CONTROLLER type ref to IF_WD_COMPONENT optional
-      !IT_MESSAGES type ZIMESSAGES .
-  class-methods FILE_DOWNLOAD
-    importing
-      !I_FILE type SIMPLE
-      !I_DATA type XSTRING .
-  class-methods GET_PARAMETER
-    importing
-      !I_NAME type DATA
-    returning
-      value(E_VALUE) type STRING .
-  class-methods GET_GUID
-    returning
-      value(E_GUID) type GUID .
-  class-methods CREATE_USAGE
-    importing
-      !IR_CONTROLLER type ref to IF_WD_COMPONENT
-      !I_COMPONENT type STRING
-      !I_USAGE type STRING optional
-      !I_REFRESH type ABAP_BOOL default ABAP_TRUE .
-  class-methods CONF_WINDOW
-    importing
-      !IR_WINDOW type ref to IF_WD_WINDOW optional
-      !IR_VIEW type ref to IF_WD_VIEW_CONTROLLER optional
-      !I_WINDOW type SIMPLE optional
-      !I_TITLE type SIMPLE optional
-      !I_WIDTH type SIMPLE optional
-      !I_HEIGHT type SIMPLE optional
-      !I_BUTTON_KIND type WDR_POPUP_BUTTON_KIND default IF_WD_WINDOW=>CO_BUTTONS_NONE
-      !I_ACTION_OK type SIMPLE optional
-      !I_TEXT_OK type SIMPLE optional
-      !I_ACTION_CANCEL type SIMPLE optional
-      !I_TEXT_CANCEL type SIMPLE optional
-      !I_ACTION_CLOSE type SIMPLE optional
-      !I_ACTION_YES type SIMPLE optional
-      !I_ACTION_NO type SIMPLE optional
-      !I_OPEN type ABAP_BOOL default ABAP_TRUE
-      !I_CLOSE type ABAP_BOOL default ABAP_TRUE .
-  class-methods OPEN_WINDOW
-    importing
-      !IR_CONTROLLER type ref to IF_WD_COMPONENT
-      !IR_VIEW type ref to IF_WD_VIEW_CONTROLLER optional
-      !I_WINDOW type SIMPLE
-      !I_TITLE type SIMPLE optional
-      !I_BUTTON_KIND type WDR_POPUP_BUTTON_KIND default IF_WD_WINDOW=>CO_BUTTONS_NONE
-      !I_ACTION_OK type SIMPLE optional
-      !I_TEXT_OK type SIMPLE optional
-      !I_ACTION_CANCEL type SIMPLE optional
-      !I_TEXT_CANCEL type SIMPLE optional
-      !I_ACTION_CLOSE type SIMPLE optional
-      !I_ACTION_YES type SIMPLE optional
-      !I_ACTION_NO type SIMPLE optional
-      !I_OPEN type ABAP_BOOL default ABAP_TRUE
-      !I_BUTTON_CLOSE type ABAP_BOOL default ABAP_TRUE
-      !I_CLOSE type ABAP_BOOL default ABAP_TRUE
-      !I_WIDTH type SIMPLE optional
-    returning
-      value(ER_WINDOW) type ref to IF_WD_WINDOW .
-  class-methods OPEN_USAGE_WINDOW
-    importing
-      !IR_CONTROLLER type ref to IF_WD_COMPONENT
-      !IR_VIEW type ref to IF_WD_VIEW_CONTROLLER optional
-      !I_COMPONENT type SIMPLE optional
-      !I_USAGE type SIMPLE optional
-      !I_REFRESH type ABAP_BOOL default ABAP_TRUE
-      !I_WINDOW type SIMPLE default 'W_MAIN'
-      !I_TITLE type SIMPLE optional
-      !I_BUTTON_KIND type WDR_POPUP_BUTTON_KIND default IF_WD_WINDOW=>CO_BUTTONS_NONE
-      !I_ACTION_OK type SIMPLE optional
-      !I_ACTION_CANCEL type SIMPLE optional
-      !I_ACTION_CLOSE type SIMPLE optional
-      !I_ACTION_YES type SIMPLE optional
-      !I_ACTION_NO type SIMPLE optional
-      !I_OPEN type ABAP_BOOL default ABAP_TRUE
-      !I_CLOSE type ABAP_BOOL default ABAP_TRUE
-    returning
-      value(ER_WINDOW) type ref to IF_WD_WINDOW .
-  class-methods OPEN_CONFIRMATION_POPUP
-    importing
-      !IR_CONTROLLER type ref to IF_WD_COMPONENT
-      !IR_VIEW type ref to IF_WD_VIEW_CONTROLLER optional
-      !I_TITLE type SIMPLE optional
-      !I_TEXT type SIMPLE
-      !I_MESSAGE_TYPE type WDR_POPUP_MSG_TYPE default IF_WD_WINDOW=>CO_MSG_TYPE_NONE
-      !I_BUTTON_KIND type WDR_POPUP_BUTTON_KIND default IF_WD_WINDOW=>CO_BUTTONS_OKCANCEL
-      !I_ACTION_OK type STRING optional
-      !I_ACTION_CANCEL type STRING optional
-      !I_ACTION_YES type STRING optional
-      !I_ACTION_NO type STRING optional
-      !I_ACTION_CLOSE type STRING optional
-      !I_OPEN type ABAP_BOOL default ABAP_TRUE
-    returning
-      value(ER_POPUP) type ref to IF_WD_WINDOW .
-  class-methods OPEN_SEARCH_HELP
-    importing
-      !IR_CONTROLLER type ref to IF_WD_COMPONENT
-      !IR_VIEW type ref to IF_WD_VIEW_CONTROLLER
-      !I_SEARCH_HELP type SIMPLE
-      !I_FIELD_NAME type SIMPLE
-      !I_EVENT_HANDLER type SIMPLE
-      !I_MULTI_SELECT type ABAP_BOOL default ABAP_FALSE
-    raising
-      ZCX_GENERIC .
-  class-methods CLOSE
-    importing
-      !IR_VIEW type ref to IF_WD_VIEW_CONTROLLER
-      !I_PLUG type SIMPLE default 'EXIT' .
-  class-methods GET_ELEMENTS
-    importing
-      !IR_VIEW type ref to IF_WD_VIEW
-      !I_NAME type SIMPLE default 'ROOTUIELEMENTCONTAINER'
-    returning
-      value(ET_ELEMENTS) type WDR_VIEW_ELEMENTS .
-  class-methods SET_METADATA
-    importing
-      !IR_VIEW type ref to IF_WD_VIEW
-      !IT_METADATA type TT_METADATA
-      !I_READONLY type ABAP_BOOL default ABAP_FALSE .
-  class-methods IS_CONFIG_MODE
-    returning
-      value(E_IS) type ABAP_BOOL .
-  class-methods IS_PORTAL_MODE
-    importing
-      !IR_CONTROLLER type ref to IF_WD_COMPONENT
-    returning
-      value(E_IS) type ABAP_BOOL
-    raising
-      ZCX_GENERIC .
-  class-methods IS_DEBUG_MODE
-    returning
-      value(E_IS) type ABAP_BOOL .
+    class-methods get_url
+      importing
+        !i_app         type simple
+        !i_guid        type simple optional
+        !i_language    type langu default sy-langu
+        !it_parameters type tihttpnvp optional
+      returning
+        value(e_url)   type string .
+    class-methods open_url
+      importing
+        !ir_controller type ref to if_wd_component
+        !i_url         type string .
+    class-methods clear_messages
+      importing
+        !ir_controller type ref to if_wd_component .
+    class-methods add_message
+      importing
+        !ir_controller type ref to if_wd_component
+        !is_message    type zsmessage optional .
+    class-methods add_messages
+      importing
+        !ir_controller type ref to if_wd_component optional
+        !it_messages   type zimessages .
+    class-methods file_download
+      importing
+        !i_file type simple
+        !i_data type xstring .
+    class-methods get_parameter
+      importing
+        !i_name        type data
+      returning
+        value(e_value) type string .
+    class-methods get_guid
+      returning
+        value(e_guid) type guid .
+    class-methods create_usage
+      importing
+        !ir_controller type ref to if_wd_component
+        !i_component   type string
+        !i_usage       type string optional
+        !i_refresh     type abap_bool default abap_true .
+    class-methods conf_window
+      importing
+        !ir_window       type ref to if_wd_window optional
+        !ir_view         type ref to if_wd_view_controller optional
+        !i_window        type simple optional
+        !i_title         type simple optional
+        !i_width         type simple optional
+        !i_height        type simple optional
+        !i_button_kind   type wdr_popup_button_kind default if_wd_window=>co_buttons_none
+        !i_action_ok     type simple optional
+        !i_text_ok       type simple optional
+        !i_action_cancel type simple optional
+        !i_text_cancel   type simple optional
+        !i_action_close  type simple optional
+        !i_action_yes    type simple optional
+        !i_action_no     type simple optional
+        !i_fpm           type abap_bool default abap_false
+        !i_open          type abap_bool default abap_true
+        !i_close         type abap_bool default abap_true .
+    class-methods open_window
+      importing
+        !ir_controller   type ref to if_wd_component
+        !ir_view         type ref to if_wd_view_controller optional
+        !i_window        type simple
+        !i_title         type simple optional
+        !i_button_kind   type wdr_popup_button_kind default if_wd_window=>co_buttons_none
+        !i_action_ok     type simple optional
+        !i_text_ok       type simple optional
+        !i_action_cancel type simple optional
+        !i_text_cancel   type simple optional
+        !i_action_close  type simple optional
+        !i_action_yes    type simple optional
+        !i_action_no     type simple optional
+        !i_open          type abap_bool default abap_true
+        !i_button_close  type abap_bool default abap_true
+        !i_close         type abap_bool default abap_true
+        !i_width         type simple optional
+      returning
+        value(er_window) type ref to if_wd_window .
+    class-methods open_usage_window
+      importing
+        !ir_controller   type ref to if_wd_component
+        !ir_view         type ref to if_wd_view_controller optional
+        !i_component     type simple optional
+        !i_usage         type simple optional
+        !i_refresh       type abap_bool default abap_true
+        !i_window        type simple default 'W_MAIN'
+        !i_title         type simple optional
+        !i_button_kind   type wdr_popup_button_kind default if_wd_window=>co_buttons_none
+        !i_action_ok     type simple optional
+        !i_text_ok       type simple optional
+        !i_action_cancel type simple optional
+        !i_text_cancel   type simple optional
+        !i_action_close  type simple optional
+        !i_action_yes    type simple optional
+        !i_action_no     type simple optional
+        !i_open          type abap_bool default abap_true
+        !i_close         type abap_bool default abap_true
+      returning
+        value(er_window) type ref to if_wd_window .
+    class-methods open_confirmation_popup
+      importing
+        !ir_controller   type ref to if_wd_component
+        !ir_view         type ref to if_wd_view_controller optional
+        !i_title         type simple optional
+        !i_text          type simple
+        !i_message_type  type wdr_popup_msg_type default if_wd_window=>co_msg_type_none
+        !i_button_kind   type wdr_popup_button_kind default if_wd_window=>co_buttons_okcancel
+        !i_action_ok     type string optional
+        !i_action_cancel type string optional
+        !i_action_yes    type string optional
+        !i_action_no     type string optional
+        !i_action_close  type string optional
+        !i_open          type abap_bool default abap_true
+      returning
+        value(er_popup)  type ref to if_wd_window .
+    class-methods open_search_help
+      importing
+        !ir_controller   type ref to if_wd_component
+        !ir_view         type ref to if_wd_view_controller
+        !i_search_help   type simple
+        !i_field_name    type simple
+        !i_event_handler type simple
+        !i_multi_select  type abap_bool default abap_false
+      raising
+        zcx_generic .
+    class-methods close
+      importing
+        !ir_view type ref to if_wd_view_controller
+        !i_plug  type simple default 'EXIT' .
+    class-methods get_elements
+      importing
+        !ir_view           type ref to if_wd_view
+        !i_name            type simple default 'ROOTUIELEMENTCONTAINER'
+      returning
+        value(et_elements) type wdr_view_elements .
+    class-methods set_metadata
+      importing
+        !ir_view     type ref to if_wd_view
+        !it_metadata type tt_metadata
+        !i_readonly  type abap_bool default abap_false .
+    class-methods is_config_mode
+      returning
+        value(e_is) type abap_bool .
+    class-methods is_portal_mode
+      importing
+        !ir_controller type ref to if_wd_component
+      returning
+        value(e_is)    type abap_bool
+      raising
+        zcx_generic .
+    class-methods is_debug_mode
+      returning
+        value(e_is) type abap_bool .
   protected section.
 *"* protected components of class ZCLSRM_WD
 *"* do not include other source files here!!!
@@ -261,9 +264,11 @@ CLASS ZCL_WD_STATIC IMPLEMENTATION.
       data ls_parameter like line of lt_parameters.
       ls_parameter-name = 'CLOSE_WINDOW'.
       create data ls_parameter-value type c.
+
       field-symbols <lv_value> type any.
       assign ls_parameter-value->* to <lv_value>.
       <lv_value> = abap_true.
+
       insert ls_parameter into table lt_parameters.
 
       data l_plug type string.
@@ -323,6 +328,21 @@ CLASS ZCL_WD_STATIC IMPLEMENTATION.
 
       assert ir_view is bound.
 
+      if i_fpm eq abap_true.
+
+        data l_action type string.
+        l_action = 'CONFIRM_ACTION'.
+
+***        data lt_event_mapping type /sapsrm/t_ch_wd_event_mapping.
+***        field-symbols <ls_event_mapping> like line of lt_event_mapping.
+***        append initial line to lt_event_mapping assigning <ls_event_mapping>.
+***        <ls_event_mapping>-action_name = 'ON_OK'.
+***        <ls_event_mapping>-event_name  = i_action_ok.
+
+      else.
+        l_action = i_action_ok.
+      endif.
+
       if i_text_ok is initial.
         data l_button_text type string.
         l_button_text = text-001.
@@ -333,7 +353,7 @@ CLASS ZCL_WD_STATIC IMPLEMENTATION.
       lr_window->subscribe_to_button_event(
         button      = if_wd_window=>co_button_ok
         button_text = l_button_text
-        action_name = i_action_ok
+        action_name = l_action
         action_view = ir_view ).
 
     endif.
@@ -341,6 +361,18 @@ CLASS ZCL_WD_STATIC IMPLEMENTATION.
     if i_action_cancel is not initial.
 
       assert ir_view is bound.
+
+      if i_fpm eq abap_true.
+
+        l_action = 'CONFIRM_ACTION'.
+
+***        append initial line to lt_event_mapping assigning <ls_event_mapping>.
+***        <ls_event_mapping>-action_name = 'ON_OK'.
+***        <ls_event_mapping>-event_name  = i_action_ok.
+
+      else.
+        l_action = i_action_ok.
+      endif.
 
       if i_text_cancel is initial.
         l_button_text = text-002.
@@ -386,6 +418,12 @@ CLASS ZCL_WD_STATIC IMPLEMENTATION.
         action_name = i_action_close
         view        = ir_view ).
 
+    endif.
+
+    if i_fpm eq abap_true.
+***      ir_view->get_context( )->root_node->get_child_node(
+***        name = 'EVENT_MAPPING' )->bind_table(
+***          new_items = lt_event_mapping ).
     endif.
 
   endmethod.
@@ -784,9 +822,6 @@ CLASS ZCL_WD_STATIC IMPLEMENTATION.
     data l_window type string.
     l_window = i_window.
 
-    data l_title type string.
-    l_title = i_title.
-
     data lr_window_manager type ref to if_wd_window_manager.
     lr_window_manager = ir_controller->get_window_manager( ).
 
@@ -794,52 +829,24 @@ CLASS ZCL_WD_STATIC IMPLEMENTATION.
       lr_window_manager->create_window_for_cmp_usage(
         interface_view_name  = l_window
         component_usage_name = l_usage
-        title                = l_title
         message_display_mode = if_wd_window=>co_msg_display_mode_selected
         close_in_any_case    = i_close
         is_resizable         = abap_true ).
 
-    er_window->set_button_kind( i_button_kind ).
-
-    if i_action_ok is not initial.
-      er_window->subscribe_to_button_event(
-          button      = if_wd_window=>co_button_ok
-          action_name = i_action_ok
-          action_view = ir_view ).
-    endif.
-
-    if i_action_cancel is not initial.
-      er_window->subscribe_to_button_event(
-          button      = if_wd_window=>co_button_cancel
-          action_name = i_action_cancel
-          action_view = ir_view ).
-    endif.
-
-    if i_action_yes is not initial.
-      er_window->subscribe_to_button_event(
-          button      = if_wd_window=>co_button_yes
-          action_name = i_action_yes
-          action_view = ir_view ).
-    endif.
-
-    if i_action_no is not initial.
-      er_window->subscribe_to_button_event(
-          button      = if_wd_window=>co_button_no
-          action_name = i_action_no
-          action_view = ir_view ).
-    endif.
-
-    if i_action_close is not initial.
-      er_window->set_on_close_action(
-        action_name = i_action_close
-        view        = ir_view ).
-    endif.
-
-    er_window->set_window_position( position = if_wd_window=>co_center ).
-
-    if i_open eq abap_true.
-      er_window->open( ).
-    endif.
+    conf_window(
+      ir_window       = er_window
+      ir_view         = ir_view
+      i_title         = i_title
+      i_button_kind   = i_button_kind
+      i_action_ok     = i_action_ok
+      i_text_ok       = i_text_ok
+      i_action_cancel = i_action_cancel
+      i_text_cancel   = i_text_cancel
+      i_action_close  = i_action_close
+      i_action_yes    = i_action_yes
+      i_action_no     = i_action_no
+      i_open          = i_open
+      i_close         = i_close ).
 
   endmethod.
 
