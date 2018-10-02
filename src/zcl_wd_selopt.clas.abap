@@ -1,75 +1,75 @@
-class zcl_wd_selopt definition
+class ZCL_WD_SELOPT definition
   public
   final
   create public .
 
 *"* public components of class ZCL_WD_SELOPT
 *"* do not include other source files here!!!
-  public section.
+public section.
+  type-pools ABAP .
 
-    data r_selopt type ref to if_wd_select_options .
+  data R_SELOPT type ref to IF_WD_SELECT_OPTIONS .
 
-    methods constructor
-      importing
-        !ir_selopt type ref to iwci_wdr_select_options .
-    class-methods get
-      importing
-        !ir_selopt       type ref to iwci_wdr_select_options
-      returning
-        value(er_selopt) type ref to zcl_wd_selopt .
-    class-methods get_by_usage
-      importing
-        !ir_usage        type ref to if_wd_component_usage
-      returning
-        value(er_selopt) type ref to zcl_wd_selopt .
-    methods init .
-    type-pools abap .
-    methods create
-      importing
-        !i_id         type simple
-        !i_type       type simple
-        !i_text       type simple optional
-        !i_parameter  type abap_bool optional
-        !i_checkbox   type abap_bool optional
-        !i_dropdown   type abap_bool optional
-        !i_readonly   type abap_bool default abap_false
-        !i_value      type simple optional
-        !it_values    type zivalues optional
-        !i_help_str   type ddobjname optional
-        !i_help_field type fieldname optional .
-    methods update
-      importing
-        !i_id         type simple
-        !i_text       type simple optional
-        !i_readonly   type abap_bool optional
-        !i_obligatory type abap_bool optional
-        !i_value      type data optional
-        !it_range     type zirange optional .
-    methods remove
-      importing
-        !i_id type simple .
-    methods reset .
-    methods check
-      raising
-        zcx_generic .
-    methods set_range
-      importing
-        !i_id     type string
-        !it_range type zirange optional .
-    methods get_range
-      importing
-        !i_id           type string
-      returning
-        value(et_range) type zirange .
-    methods set_value
-      importing
-        !i_id    type string
-        !i_value type data optional .
-    methods get_value
-      importing
-        !i_id          type string
-      returning
-        value(e_value) type string .
+  methods CONSTRUCTOR
+    importing
+      !IR_SELOPT type ref to IWCI_WDR_SELECT_OPTIONS .
+  class-methods GET
+    importing
+      !IR_SELOPT type ref to IWCI_WDR_SELECT_OPTIONS
+    returning
+      value(ER_SELOPT) type ref to ZCL_WD_SELOPT .
+  class-methods GET_BY_USAGE
+    importing
+      !IR_USAGE type ref to IF_WD_COMPONENT_USAGE
+    returning
+      value(ER_SELOPT) type ref to ZCL_WD_SELOPT .
+  methods INIT .
+  methods CREATE
+    importing
+      !I_ID type SIMPLE
+      !I_TYPE type SIMPLE
+      !I_TEXT type SIMPLE optional
+      !I_PARAMETER type ABAP_BOOL optional
+      !I_CHECKBOX type ABAP_BOOL optional
+      !I_DROPDOWN type ABAP_BOOL optional
+      !I_READONLY type ABAP_BOOL default ABAP_FALSE
+      !I_VALUE type SIMPLE optional
+      !IT_VALUES type ZIVALUES optional
+      !I_HELP_STR type DDOBJNAME optional
+      !I_HELP_FIELD type FIELDNAME optional .
+  methods UPDATE
+    importing
+      !I_ID type SIMPLE
+      !I_TEXT type SIMPLE optional
+      !I_READONLY type ABAP_BOOL optional
+      !I_OBLIGATORY type ABAP_BOOL optional
+      !I_VALUE type DATA optional
+      !IT_RANGE type ZIRANGE optional .
+  methods REMOVE
+    importing
+      !I_ID type SIMPLE .
+  methods RESET .
+  methods CHECK
+    raising
+      ZCX_GENERIC .
+  methods SET_RANGE
+    importing
+      !I_ID type STRING
+      !IT_RANGE type ZIRANGE optional .
+  methods GET_RANGE
+    importing
+      !I_ID type STRING
+    returning
+      value(ET_RANGE) type ZIRANGE .
+  methods SET_VALUE
+    importing
+      !I_ID type STRING
+      !I_VALUE type DATA optional .
+  methods GET_VALUE
+    importing
+      !I_ID type STRING
+    returning
+      value(E_VALUE) type STRING .
   protected section.
 *"* protected components of class ZCL_WD_SELOPT
 *"* do not include other source files here!!!

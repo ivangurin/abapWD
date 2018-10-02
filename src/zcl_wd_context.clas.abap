@@ -1,159 +1,159 @@
-class zcl_wd_context definition
+class ZCL_WD_CONTEXT definition
   public
   final
   create public .
 
 *"* public components of class ZCL_WD_CONTEXT
 *"* do not include other source files here!!!
-  public section.
-    type-pools abap .
-    interface if_wd_context_node load .
-    interface if_wd_context_node_info load .
+public section.
+  type-pools ABAP .
+  interface IF_WD_CONTEXT_NODE load .
+  interface IF_WD_CONTEXT_NODE_INFO load .
 
-    data r_context type ref to if_wd_context_node .
+  data R_CONTEXT type ref to IF_WD_CONTEXT_NODE .
 
-    class-methods get
-      importing
-        !ir_context       type ref to if_wd_context_node
-      returning
-        value(er_context) type ref to zcl_wd_context .
-    methods constructor
-      importing
-        !ir_context type ref to if_wd_context_node .
-    methods create_node
-      importing
-        !i_path                      type string
-        !it_fields                   type zcl_abap_static=>tt_fields
-        !i_initialize_lead_selection type abap_bool default abap_false
-        !is_multiple_selection       type abap_bool default abap_false
-      returning
-        value(er_info)               type ref to if_wd_context_node_info .
-    methods get_node
-      importing
-        !i_path        type string
-      returning
-        value(er_node) type ref to if_wd_context_node .
-    methods clear
-      importing
-        !i_path type simple .
-    methods get_value
-      importing
-        !i_path        type string
-        !i_index       type i default if_wd_context_node=>use_lead_selection
-        !i_field       type string optional
-      returning
-        value(e_value) type string .
-    methods set_value
-      importing
-        !i_path  type string
-        !i_index type i default if_wd_context_node=>use_lead_selection
-        !i_field type string optional
-        !i_value type data optional .
-    methods get_structure
-      importing
-        !i_path        type string
-        !i_index       type i default if_wd_context_node=>use_lead_selection
-      exporting
-        value(es_data) type data .
-    methods set_structure
-      importing
-        !i_path  type string
-        !i_index type i default if_wd_context_node=>use_lead_selection
-        !is_data type data .
-    methods get_table
-      importing
-        !i_path   type string
-        !i_static type abap_bool default abap_true
-      exporting
-        !et_data  type table .
-    methods set_table
-      importing
-        !i_path  type string
-        !it_data type any table
-        !i_soft  type abap_bool default abap_false
-        !i_field type string optional .
-    methods select
-      importing
-        !i_path  type string
-        !i_index type i default 1 .
-    methods get_selection
-      importing
-        !i_path        type string
-      returning
-        value(e_index) type i .
-    methods clear_selection
-      importing
-        !i_path type string .
-    methods get_selected
-      importing
-        !i_path        type string
-      exporting
-        value(et_data) type data .
-    methods delete_selected
-      importing
-        !i_path type string .
-    methods update_selected
-      importing
-        !i_path  type simple
-        !is_data type data .
-    methods set_property
-      importing
-        !i_path     type string
-        !i_index    type i default if_wd_context_node=>use_lead_selection
-        !i_field    type string optional
-        !i_property type string
-        !i_value    type abap_bool default abap_false .
-    methods get_values
-      importing
-        !i_path          type string
-        !i_field         type string optional
-      returning
-        value(et_values) type zivalues .
-    methods set_values
-      importing
-        !i_path    type string
-        !i_field   type string optional
-        !it_values type zivalues .
-    methods set_nullable
-      importing
-        !i_path  type string
-        !i_field type string optional .
-    methods set_search_help
-      importing
-        !i_path  type simple
-        !i_field type simple optional
-        !i_name  type simple optional
-        !i_mode  type i default if_wd_context_node_info=>c_value_help_mode-ddic .
-    methods add_field
-      importing
-        !i_path type string
-        !i_name type string
-        !i_type type string .
-    methods add_fields
-      importing
-        !i_path    type string
-        !it_fields type zcl_abap_static=>tt_fields .
-    methods append
-      importing
-        !i_path  type string
-        !is_data type data .
-    methods set_true
-      importing
-        !i_path type string .
-    methods set_false
-      importing
-        !i_path type string .
-    methods set_changed
-      importing
-        !i_path type simple .
-    methods was_changed
-      importing
-        !i_path     type simple
-      returning
-        value(e_is) type abap_bool .
-    methods reset_changed
-      importing
-        !i_path type simple .
+  class-methods GET
+    importing
+      !IR_CONTEXT type ref to IF_WD_CONTEXT_NODE
+    returning
+      value(ER_CONTEXT) type ref to ZCL_WD_CONTEXT .
+  methods CONSTRUCTOR
+    importing
+      !IR_CONTEXT type ref to IF_WD_CONTEXT_NODE .
+  methods CREATE_NODE
+    importing
+      !I_PATH type STRING
+      !IT_FIELDS type ZCL_ABAP_STATIC=>TT_FIELDS
+      !I_INITIALIZE_LEAD_SELECTION type ABAP_BOOL default ABAP_FALSE
+      !IS_MULTIPLE_SELECTION type ABAP_BOOL default ABAP_FALSE
+    returning
+      value(ER_INFO) type ref to IF_WD_CONTEXT_NODE_INFO .
+  methods GET_NODE
+    importing
+      !I_PATH type STRING
+    returning
+      value(ER_NODE) type ref to IF_WD_CONTEXT_NODE .
+  methods CLEAR
+    importing
+      !I_PATH type SIMPLE .
+  methods GET_VALUE
+    importing
+      !I_PATH type STRING
+      !I_INDEX type I default IF_WD_CONTEXT_NODE=>USE_LEAD_SELECTION
+      !I_FIELD type STRING optional
+    returning
+      value(E_VALUE) type STRING .
+  methods SET_VALUE
+    importing
+      !I_PATH type STRING
+      !I_INDEX type I default IF_WD_CONTEXT_NODE=>USE_LEAD_SELECTION
+      !I_FIELD type STRING optional
+      !I_VALUE type DATA optional .
+  methods GET_STRUCTURE
+    importing
+      !I_PATH type STRING
+      !I_INDEX type I default IF_WD_CONTEXT_NODE=>USE_LEAD_SELECTION
+    exporting
+      value(ES_DATA) type DATA .
+  methods SET_STRUCTURE
+    importing
+      !I_PATH type STRING
+      !I_INDEX type I default IF_WD_CONTEXT_NODE=>USE_LEAD_SELECTION
+      !IS_DATA type DATA .
+  methods GET_TABLE
+    importing
+      !I_PATH type STRING
+      !I_STATIC type ABAP_BOOL default ABAP_TRUE
+    exporting
+      !ET_DATA type TABLE .
+  methods SET_TABLE
+    importing
+      !I_PATH type STRING
+      !IT_DATA type ANY TABLE
+      !I_SOFT type ABAP_BOOL default ABAP_FALSE
+      !I_FIELD type STRING optional .
+  methods SELECT
+    importing
+      !I_PATH type STRING
+      !I_INDEX type I default 1 .
+  methods GET_SELECTION
+    importing
+      !I_PATH type STRING
+    returning
+      value(E_INDEX) type I .
+  methods CLEAR_SELECTION
+    importing
+      !I_PATH type STRING .
+  methods GET_SELECTED
+    importing
+      !I_PATH type STRING
+    exporting
+      value(ET_DATA) type DATA .
+  methods DELETE_SELECTED
+    importing
+      !I_PATH type STRING .
+  methods UPDATE_SELECTED
+    importing
+      !I_PATH type SIMPLE
+      !IS_DATA type DATA .
+  methods SET_PROPERTY
+    importing
+      !I_PATH type STRING
+      !I_INDEX type I default IF_WD_CONTEXT_NODE=>USE_LEAD_SELECTION
+      !I_FIELD type STRING optional
+      !I_PROPERTY type STRING
+      !I_VALUE type ABAP_BOOL default ABAP_FALSE .
+  methods GET_VALUES
+    importing
+      !I_PATH type STRING
+      !I_FIELD type STRING optional
+    returning
+      value(ET_VALUES) type ZIVALUES .
+  methods SET_VALUES
+    importing
+      !I_PATH type STRING
+      !I_FIELD type STRING optional
+      !IT_VALUES type ZIVALUES .
+  methods SET_NULLABLE
+    importing
+      !I_PATH type STRING
+      !I_FIELD type STRING optional .
+  methods SET_SEARCH_HELP
+    importing
+      !I_PATH type SIMPLE
+      !I_FIELD type SIMPLE optional
+      !I_NAME type SIMPLE optional
+      !I_MODE type I default IF_WD_CONTEXT_NODE_INFO=>C_VALUE_HELP_MODE-DDIC .
+  methods ADD_FIELD
+    importing
+      !I_PATH type STRING
+      !I_NAME type STRING
+      !I_TYPE type STRING .
+  methods ADD_FIELDS
+    importing
+      !I_PATH type STRING
+      !IT_FIELDS type ZCL_ABAP_STATIC=>TT_FIELDS .
+  methods APPEND
+    importing
+      !I_PATH type STRING
+      !IS_DATA type DATA .
+  methods SET_TRUE
+    importing
+      !I_PATH type STRING .
+  methods SET_FALSE
+    importing
+      !I_PATH type STRING .
+  methods SET_CHANGED
+    importing
+      !I_PATH type SIMPLE .
+  methods WAS_CHANGED
+    importing
+      !I_PATH type SIMPLE
+    returning
+      value(E_IS) type ABAP_BOOL .
+  methods RESET_CHANGED
+    importing
+      !I_PATH type SIMPLE .
   protected section.
 *"* protected components of class ZCLSRM_CONTEXT
 *"* do not include other source files here!!!
