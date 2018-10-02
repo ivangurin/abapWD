@@ -371,7 +371,7 @@ CLASS ZCL_WD_STATIC IMPLEMENTATION.
 ***        <ls_event_mapping>-event_name  = i_action_ok.
 
       else.
-        l_action = i_action_ok.
+        l_action = i_action_cancel.
       endif.
 
       if i_text_cancel is initial.
